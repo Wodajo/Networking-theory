@@ -29,10 +29,10 @@ e.g. 100BASE-t -> 100 (speed [Mbps]),  BASE (baseband signaling), T - twisted pa
 Fiber
 | IEEE standard | informal name | speed  | max. length         | cable type               |
 |---------------|---------------|--------|---------------------|--------------------------|
-| 802.3z        | 1000BASE-LX   | 1Gbps  | 550m (MM), 5km (SM) | Multimode or Single-mode |
-| 802.3ae       | 10GBASE-SR    | 10Gbps | 400m                | Multimode                |
-| 802.3ae       | 10GBASE-LR    | 10Gbps | 10km                | Single-mode              |
-| 802.3ae       | 10GBASE-ER    | 10Gbps | 30km                | Single-mode              |
+| 802.3z        |  1000BASE-LX   | 1Gbps   | 550m (MM), 5km (SM) | Multimode or Single-mode |
+| 802.3ae       |  10GBASE-SR    | 10Gbps  | 400m                | Multimode                |
+| 802.3ae       |  10GBASE-LR    | 10Gbps  | 10km                | Single-mode              |
+| 802.3ae       |  10GBASE-ER    | 10Gbps  | 30km                | Single-mode              |
 (there is more)
 
 - use one cable to RX and one to TX
