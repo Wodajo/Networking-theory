@@ -50,3 +50,4 @@ Fiber
 Ports:
 - RJ-45 (Registered Jack) - used with copper ethernet cable
 - SFP Transceiver (Small Form-Factor Pluggable) - insert them into ports for fiber port, and fiber into transceiver
+form factor - hardware design aspect that defines size, shape and other physical specifications of components

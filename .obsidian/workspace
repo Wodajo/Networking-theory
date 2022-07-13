@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Networking 8th/Transport layer.md",
+            "file": "CCNA-by-Jeremy/intro to cli.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Networking 8th/Transport layer.md",
+                "file": "CCNA-by-Jeremy/intro to cli.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,13 +89,14 @@
   },
   "active": "f188cb232356957b",
   "lastOpenFiles": [
-    "Networking 8th/Transport layer.md",
-    "CCNA-by-Jeremy/Interfaces and cables.md",
-    "CCNA-by-Jeremy/Network devices.md",
-    "Networking 8th/General.md",
-    "General.md",
-    "CCNA-by-Jeremy/OSI model.md",
     "CCNA-by-Jeremy/notes.md",
-    "README.md"
+    "README.md",
+    "General.md",
+    "CCNA-by-Jeremy/intro to cli.md",
+    "CCNA-by-Jeremy/OSI model.md",
+    "CCNA-by-Jeremy/Interfaces and cables.md",
+    "Networking 8th/Transport layer.md",
+    "CCNA-by-Jeremy/Network devices.md",
+    "Networking 8th/General.md"
   ]
 }
