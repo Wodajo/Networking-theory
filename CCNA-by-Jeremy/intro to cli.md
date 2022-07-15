@@ -15,7 +15,7 @@ Router#configure terminal
 `Router` - hostname of device  
 `>` - user EXEC mode aka user mode - users can look but can't make any configuration changes
 `enable` - enable `#`
-`#` - priviledged EXEC mode - complete accsess to view dev. conf., restart etc.
+`#` - priviledged EXEC mode - complete accsess to view dev. config, restart etc.
 Can change time, save current conf. file BUT can't change the configuration
 `configure terminal` - enters  `global configuration mode`
 ```
@@ -41,7 +41,7 @@ There are 2 separate conf. files on dev.:
 
 `show running-config` - if it's the passwd-setting-in-cleartext-session it's in there!!!
 `show startup-config`
-`write` or `write memory` or `copy running-config startup-config` - save `running-config` as `startup-config`
+`write` or `write memory` or `copy running-config startup-config` - save `running-config` as `startup-config` (without it passwd not saved)
 
 For higher security:
 `conf t` -> enter `global config mode` 

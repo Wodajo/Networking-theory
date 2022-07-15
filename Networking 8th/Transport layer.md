@@ -41,14 +41,15 @@ TCP senders would get especially fked, bcos they do decrease they're sending rat
 - header - 4 fields, each consisting 2 bytes:
 	- source port
 	- dst. port
-	- lengh - segment lengh (header + application data) in bytes
+	- lengh - datagram lengh (header + application data) in bytes
+	i.e. max. = 2^16 = 65,536 kB/datagram
 	- checksum - used by receiving host to check for errors. Calculated also by few of the IP header fields and link-layer protocols. You never know if error occured e.g. when datagram was stored in router memory.
 	It looks like lower level functions are redundant
 
 
 
 ##### TCP
-###### Reliable data transfer:
+###### Reliable data transfer - contemplations:
 - ARQ (Automatic Repeat reQuest protocols) - in computer networking - error control method using both **positive acknowledgements** (e.g. "I understand") and **negative acknowledgements** ("Please repeat that"):
 	- error detection
 	- receiver feedback
@@ -92,24 +93,74 @@ That's why we have (TTL time to live). In TCP extensions for high-speed networks
 Both `Ethernet` and `PPP` link-layer protocols have `MTU` ~ 1500 bytes -> typical `MSS` ~ 1460 bytes.
 Sometimes to estimate `MSS`, we use `MTU path` - largest link-layer frame that can be sent over all links from source -> dst.
 - Data from received packets -> `receive buffer` -> application layer
+RFC's don't regulate if receiver should discard or buffer out-of-order packets, but the latter choice is common
 
 ###### TCP segment structure
 - header:
 	- source port [16 bit = 2 bytes]
 	- dst. port [16 bit = 2 bytes]
-	- HLEN (header length field) [4 bit] - lengh of TCP header in 32-bit (4 byte) words. E.g. if [TCP header = 20 bytes (no options - typical/minimal segment header)] -> field will hold 5 (5X4=20 bytes). Max. field size is 2^1+2^2+2^3+2^4=15. 15X4=60, and 60 bytes is max. TCP header size.
-	- checksum [16 bit = bytes]
+	- HLEN (header length field) [4 bit] - lengh of TCP header in 32-bit (4 byte) words. E.g. if [TCP header = 20 bytes (no options - typical/minimal segment header)] -> field will hold decimal 5 (5X4=20 bytes). Max. field size is 2^1+2^2+2^3+2^4=15. 15X4=60, and 60 bytes is max. TCP header size.
+	- checksum [16 bit = 2 bytes]
 	- seq. nr. field [32 bit = 4 bytes]
 	- ack. nr. field [32 bit = 4 bytes]
 	- receive window [16 bit = 2 bytes]
-	- options field - optional. For sender-receiver `MSS` negotiation, window scaling factor, time-stamping ([RFC 854](https://www.rfc-editor.org/rfc/rfc854) and [RFC 1323](https://datatracker.ietf.org/doc/html/rfc1323)) [0-40 bytes]
+	- options field - optional. For sender-receiver `MSS negotiation`, `window scaling factor`, `time-stamping` ([RFC 854](https://www.rfc-editor.org/rfc/rfc854) and [RFC 1323](https://datatracker.ietf.org/doc/html/rfc1323)) [0-40 bytes]
 	- flag field [6 bit]:
 		- `ACK` - bit set if value carried in ack. nr. field is valid
 		- `SYN`, `FIN`, `RST` - bits for connection setup and teardown
 		- `PSH` - indicates that receiver should pass the data to the upper layer immediately
-		- `URG` - indicate that data in this segment was marked as "urgent" by sending-side upper-layer entity -> location of urgend data is indicated in `urgent data pointer` [16 bit]. In practice `PSH` and `URG` are rather not used
+		- `URG` - indicate that data in this segment was marked as "urgent" by sending-side upper-layer entity -> location of urgend data is indicated in `urgent data pointer` [16 bit]. 
+		  In practice `PSH` and `URG` are rather not used
 	- urgent data pointer [16 bit]
 	- reserved [6 bit]:
 		- `CWR`, `ECE` - bits for explicit congestion notification
 
 ###### Seq. nr & ack. nr.
+- `seq. nr.` for a segment: - nr. of the first byte (of data stream) in the segment  
+seq. nr. of the first byte is chosen randomly to minimize possibility that a "lost-in-network" segment from previous connection get's mistaken for valid segment  
+- `ack. nr.` - nr. of the next `seq. nr.` that host is expecting from the other side  
+TCP acknowledges bytes up to the first missing byte in the stream -> `cumulative acknowledgments`
+
+![seq-ack](./img/seq-qck.png)
+`ACK` for client-to-server data is carried in a server-to-client data -> it is "`piggybacked`"
+Even tho last segment DOESN'T contain any data - it has `seq. nr.` = 43 (it has to have some)
+
+So both segments carrying 1byte of data and empty creates incrementation = 1
+
+###### Round-trip time estimation & timeout
+[RCF 6298](https://www.rfc-editor.org/rfc/rfc6298)
+
+`Sample RTT` - time from passing segment to IP layer to it's `ACK`  
+TCP take only one `Sample RTT` for a time (not for each and every segment)  
+
+`Estimated RTT` is a weighted average of `Sample RTT` values  
+this weighed average is called `EWMA` (exponential weighted moving average) - because weight of `Sample RTT` decays exponentially fast as the uptades proceed
+
+`Dev RTT` is a deviation/variability of the `Sample RTT`s
+It's a `EWMA` of the `Sample RTT` - `Estimated RTT`
+If `Dev RTT` small -> little fluctuation
+
+`Timeout Interval` = `Estimated RTT` + 4 * `Dev RTT`
+Recommended initial `Timeout Interval` = 1s
+
+If `timeout` occurs -> `Timeout Interval` is doubled (to avoid premature timeout for subsequent segment)  
+As soon as segment is received -> `Estimated RTT` is updated and `Timeout Interval` computed normally again
+
+###### Reliable data transfer - TCP
+[timer management] can require considerable overhead -> [RCF 6298](https://www.rfc-editor.org/rfc/rfc6298) recommend only a *single* retransmission timer 
+
+`Timer` set for oldest unACKed segment.  
+When timeout -> resend only timed-out (oldest unACKed) segment, 2 * `Timeout interval` AND wait for it's `ACK` (or cumulative ACK of higher segments) - without resending any other segments.  
+If `ACK` - `Timeoute interval` derived from `Estimated RTT` & `Dev RTT` and further segments can be resent 
+If more timeouts - `Time interval` grow exponentially -> form of `congestion control`
+
+[RFC 5681](https://www.rfc-editor.org/rfc/rfc5681)
+If out-of-order segment at receiver - `duplicate ACK` indicating `seq. nr.` of nex expected byte (lower end of gap)  
+If 3 `duplicate ACK` - sender knows that following segment has been lost -> `fast retransmit` of lost segment (*before* timeout)
+![fast-retransmitt](./img/fast-retransmitt.png)
+
+When multiple packets are lost from one `window` of data - TCP may experience poor performance
+`selective acknoledgment option` [RFC 2018](https://datatracker.ietf.org/doc/html/rfc2018) - allows receiver to acknowledge out-of-order segments selectively.  
+Combined with `selective retransmissions` policy - weapon against such limitations
+
+###### Flow control
