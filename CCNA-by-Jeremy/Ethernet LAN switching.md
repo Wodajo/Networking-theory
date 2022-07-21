@@ -1,8 +1,8 @@
 `eth. frame`:
 - header:  26 [bytes] with preamble and SFD, **18** [bytes] without
-	- ~~preamble [7 bytes] ~~- allows devices synch. receiver clocks. Striekthrough bcos it's usually NOT considered a part of `eth. frame` header
+	- ~~preamble~~[7 bytes]- allows devices synch. receiver clocks. Striekthrough bcos it's usually NOT considered a part of `eth. frame` header
 	  10101010 * 7
-	- ~~SFD (`Start Frame Delimiter`) [1byte]~~
+	- ~~SFD~~ (`Start Frame Delimiter`) [1byte]
 	  10101011
 	- destination [6 bytes = 12 hex digits]
 	- source [6 bytes]

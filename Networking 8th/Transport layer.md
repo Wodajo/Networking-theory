@@ -232,7 +232,7 @@ If server receives `SYN` for closed port -> `RST`
 
 	- `network-assisted congestion control` - router provide explicit feedback
 	  e.g.
-	  `ATM Available Bite Rate` (`ABR`) congestion control - router inform sender of max. host sending rate it cat support on outgoing link
+	  `ATM Available Bite Rate` (`ABR`) congestion control - router inform sender of max. host sending rate it can support on outgoing link
 	(might be direct "I'm choked" message from router to sender, or modified sender-to-receiver packet that makes receiver forward info about congestion back to sender (notification takes full RTT))
 	there exist TCP flavours using `network-assisted congestion control`
 
@@ -295,4 +295,26 @@ thus `TCP splitting` can reduce network delay roughly form 4x`RTT` => `RTT`
 
 TCP CUBIC [RFC 8312](https://datatracker.ietf.org/doc/html/rfc8312):
 - changes `congestion avoidance` phase:
-	- `W`[^max] 
+	- `W`[^max] - `cwnd` when congestion detected
+	  `K` - point in time when `window` size again reach `W`[^max] (assuming no losses)
+	- increase `cwnd` as a function of *cube* of distance between *current time* `t` and `K`
+	  if `t` further away from `K` -> rapid increase of `cwnd`
+	  when sending rate approach `W`[^max] -> cautious bandwidth probing
+	- when `t` > `K` && `t` ~ `K` -> small `cwnd` increase
+	- when `t` >> `K` -> rapid `cwnd` increase (quickly finding new operating poind, if the congestion level of the link changed significantly)
+![CUBIC](./img/CUBIC.png)
+TCP CUBIC is default TCP version of Linux OS
+
+`network-assisted congestion control`:
+e.g.
+- `explicit congestion notification` (`ECN`) [RFC 3168](https://www.rfc-editor.org/rfc/rfc3168.html)
+	- use 2 [bits] from `type of service` field of IP header
+		- 2 [bits] -> 4 possible configurations:
+			1. 00 - sender set to say that sender or receiver are NOT `ECN`-capable
+			2. 01 - sender-set to say both sender & receiver are `ECN`-capable (I dunno why bother with "01" and "10" since it's job looks the same)
+			3. 10 - sender-set to say both sender & receiver are `ECN`-capable
+			4. 11 - Congestion Experienced
+	router experience congestion (hopefully *before* packet loss) - set `ECN` bit in IP header-> receiver -TCP `ACK` piggybacking `ECE` (`explicit congestion notification echo` bit)-> sender - set `cwnd` = `cwnd`/2 && set `CWR` (`Congestion Window Reduced`) bit in the next TCP header
+
+`DCCP` (`Datagram Congestion Control Protocol`) and `DCQCN` (`Data Center Congestion Notification`) also make use of `ECN`
+

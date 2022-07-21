@@ -10,7 +10,7 @@ To add `wireshark` to `$PATH`:
 What if I spoof `RST`? (to try to disconnect someone)
 
 
-Could I throttle everyones TCP on LAN spoofing multiple `duplicate ACK`s? (TCP Tahoe, TCP Reno)
+Could I throttle everyones TCP on LAN spoofing multiple `duplicate ACK`s? (TCP Tahoe, TCP Reno, as such - TCP CUBIC)
 (wireguard use UDP, OpenVPN can use UDP or TCP. I checked with TCP and it seems like it could be attacked like this)
 
 in `slow start`:
