@@ -125,7 +125,7 @@ TCP acknowledges bytes up to the first missing byte in the stream -> `cumulative
 `ACK` for client-to-server data is carried in a server-to-client data -> it is "`piggybacked`"
 Even tho last segment DOESN'T contain any data - it has `seq. nr.` = 43 (it has to have some)
 
-So both segments carrying 1byte of data and empty creates incrementation = 1
+[So both segments carrying 1byte of data and empty creates incrementation == 1]
 
 ###### Round-trip time estimation & timeout
 [RCF 6298](https://www.rfc-editor.org/rfc/rfc6298)
@@ -155,12 +155,144 @@ If `ACK` - `Timeoute interval` derived from `Estimated RTT` & `Dev RTT` and furt
 If more timeouts - `Time interval` grow exponentially -> form of `congestion control`
 
 [RFC 5681](https://www.rfc-editor.org/rfc/rfc5681)
-If out-of-order segment at receiver - `duplicate ACK` indicating `seq. nr.` of nex expected byte (lower end of gap)  
+If out-of-order segment at receiver - `duplicate ACK` indicating `seq. nr.` of next expected byte (lower end of gap)  
 If 3 `duplicate ACK` - sender knows that following segment has been lost -> `fast retransmit` of lost segment (*before* timeout)
 ![fast-retransmitt](./img/fast-retransmitt.png)
 
 When multiple packets are lost from one `window` of data - TCP may experience poor performance
-`selective acknoledgment option` [RFC 2018](https://datatracker.ietf.org/doc/html/rfc2018) - allows receiver to acknowledge out-of-order segments selectively.  
+`selective acknoledgment (SACK) option` [RFC 2018](https://datatracker.ietf.org/doc/html/rfc2018) - allows receiver to acknowledge out-of-order segments selectively.  
 Combined with `selective retransmissions` policy - weapon against such limitations
 
 ###### Flow control
+speed-matching service  
+to eliminate the possibility of sender overflowing receiver's buffer  
+
+- "receiver's" side (in "" bcos full-duplex connection):
+`RcvBuffer` - size of allocated receiver buffer for this connection  
+`LastByteRead` - last byte read from buffer by application process  
+`LastByteRcvd` - last byte of data that has arrived from network and has been placed in receiver buffer  
+ 
+so as not to overflow the buffer:  
+`LasteByteRcvd` - `LastByteRead` =< `RcvBuffer`  
+
+`rwnd` = `RcvBuffer` - (`LastByteRcvd` - `LastByteRead`)
+`rwnd` - `receive window` - dynamic (spare room changes) variable to give sender idea of how much free buffer space is left at receiver  
+
+`rwnd` variable send with each segment. Initially `rwnd` = `RcvBuffer`
+
+- "sender's" side:
+`LastByteSent` -`LastByteACKed` = amount of unACKed data sent. =< `rwnd` (of receiver)
+if above == `True` -> sender is sure she'll not overflow receiver's buffer
+
+If `rwnd` = 0 - there is a risk that receiver doesn't have anything to send to sender (with piggybacked `rwnd`) -> sender might get stuck unable to send data!
+If `rwnd` = 0 -> sender **has to** continue sending one-data-byte segemnts  
+(receiver `ACK` them with piggybacked `rwnd`)  
+
+###### Connection management
+Establishment:
+e.g.
+1. segment with set `SYN` bit, randomly chosen initial `seq. nr.` (`client_isn`), no data-> server
+2. server extracts TCP SYN segment from packet -> allocates buffers and variables to conection [SYN flood DoS!] -> segment with `SYN` & `ACK` bits, `ack. nr.` (`client_isn+1`), server's own random `seq. nr.` (`server_isn`), no data -> client
+3. client extracts TCP SYN/ACK segment from packet -> allocates buffers and variables to connection -> segment with `ACK` bit, `ack. nr.` (`server_isn+1`), may have data
+
+Finishing:
+e.g.
+1. segment with `FIN` bit -> server
+2. segment with `ACK` -> clinet
+   segment with `FIN` -> client
+4. segment with `ACK` -> server
+after (implementation dependent) time (e.g. `30s`, `1m`, `2m`) -> release of client-side resources
+
+If server receives `SYN` for closed port -> `RST`
+
+- SYN cookies (defence against [SYN flood DoS]):
+	- when server receive `SYN` it create a `hash` (`cookie`) of `SYN` segment's source IP, destination IP, port nrs. AND secret known only to server -> put cookie as initial `seq. nr.` of `SYN/ACK`
+	  *Server don't remember cookie or any other state info. corresponding to the `SYN`*
+	  **BUT secret has to be permanent, right? ?!?!?!?!?**
+	- legitimate client would return `ACK` with value in `ack. nr.` == `cookie` + 1
+	  server calculates what would be the value of cookie + 1 for this socket, and if statement is true -> open socket
+	- if no response on `SYN/ACK` - no harm (no allocated resources)
+
+
+###### Congestion control
+`offered load` - rate of sending both original & retransmitted packets into network
+
+- Congested network:
+	- large queuing delays
+	- retransmissions needed (to compensate for dropped packets)
+	- unnecessary retransmissions might occure (due to large queuing delays)
+	- if packet is dropped - resorces used by it along the path end up wasted
+
+- Approaches to congestion control:
+	- `end-to-end congestion control` - end systems infer (wnioskują) network congestion based only on network behavior
+	  e.g.
+	  TCP segment loss (indicated by `timeout` or 3x `duplicate ACK` (with "original" packet `ACK` that's 4x `ACK`)) -> decrease of `window size`
+	  increasing `round-trip segment delay` - might also be an indicatios of network congestion
+	  "classic" TCP congestion control uses `end-to-end congestion control`
+
+	- `network-assisted congestion control` - router provide explicit feedback
+	  e.g.
+	  `ATM Available Bite Rate` (`ABR`) congestion control - router inform sender of max. host sending rate it cat support on outgoing link
+	(might be direct "I'm choked" message from router to sender, or modified sender-to-receiver packet that makes receiver forward info about congestion back to sender (notification takes full RTT))
+	there exist TCP flavours using `network-assisted congestion control`
+
+"classic" TCP `end-to-end congestion control`:
+
+if no congestion:
+	`ACK`s should be received (no `timeouts`)
+	there shouldn't be a need for retransmissions (no `timeouts` nor 3x `duplicate ACK`)
+	`ACK`s should be received fastly (small `RTT`)
+
+`cwnd` - `congestion window` variable  
+`cwnd` is estimated per `RTT` (faster if small `RTT`)
+
+`LastByteSent` - `LastByteAcked` =< min{`cwnd`, `rwnd`}
+so as not to congest network nor overflow receivers buffer
+If we omit `rwnd` - **sender's send rate is roughly `cwnd`/`RTT` [bytes/s]**
+
+lost segment indicators `timeout` or 3x `duplicate ACK` -> decrease `cwnd`
+`ACK` -> increase `cwnd`
+(TCP is `self-clocking` - use `ACK`s to trigger (clock) it's increase in `cwnd`)
+
+`bandwidth probing` - sender increase it's sending rate until packt-drop (aka probe bandwidth - so as not to waste too much link bandwidth
+
+TCP congestion-control algorithm:
+- `slow start`:
+	- when connection begins `cwnd` typically set to 1 `MSS` [RFC 3390](https://datatracker.ietf.org/doc/html/rfc3390) -> that means 1 `MSS`/`RTT` initial sending rate
+	e.g. if `MSS` = 500 [bytes], `RTT` = 200 [ms] -> initial sending rate = 20 [kbps]
+	- increases 1 `MSS`/`ACK`ed segment -> TCP sender rate grows exponentialy
+	- if `timeout` -> set `ssthresh` (`slow start threshold`) variable = `cwnd`/2 && set `cwnd` = 1 -> `slow start` again
+	- if 3x `duplicate ACK`  (less worrying than `timeout` bcos `ACK`s delivered)-> set `sstresh` = `cwnd`/2 && set `cwnd` = `sstresh` + 3`MSS` (3 `MSS` bcos of 3 `duplicate ACK`s) -> `fast recovery` (TCP Reno - recommended) or `slow start` (TCP Tahoe)
+	- when `cwnd` value == `ssthresh` (== last `cwnd` before congestion detection) -> `congestion avoidance`
+- `congestion avoidance`:
+	- increase `cwnd` by just 1 `MSS` every `RTT` [RFC 5681](https://datatracker.ietf.org/doc/html/rfc5681) -> sender rate grows linearly
+	  common approach is for the sender to increase `cwnd` by `MSS`/`cwnd` [bytes] whenever new `ACK` arrives
+	  e.g. if `MSS` = 1460 [bytes], `cwnd` = 14 600 [bytes] -> sending rate = 10 segments/`RTT`
+	  each `ACK` increases `cwnd` by 1/10 `MSS` leading to full 1 `MSS` increase/`RTT`
+	- if `timeout` -> set `ssthresh` = `cwnd`/2 && set `cwnd` = 1 -> `slow start`
+	- if 3x `duplicate ACK`-> set `sstresh` = `cwnd`/2 && set `cwnd` = `sstresh` + 3`MSS` -> `fast recovery` or `slow start`
+- `fast recovery`: - recommended, not required
+	- increase `cwnd` by 1 `MSS` every `duplicate ACK`  received for missing segment that caused TCP to enter `fast recovery` (to reflect segements that successfully left network) -> send new segment if permitted by new `cwnd` (try to ensure that ~ `sstrash` amount of data in network at end of `fast recovery`)
+	- when `ACK` for all missing segments -> set `cwnd` = `sstresh` (`cwnd` is deflated to that of a typical "starting point" of `congestion avoidance` state) -> `congestion avoidance`
+	- if `timeout` -> set `ssthresh` = `cwnd`/2 && set `cwnd` = 1 -> `slow start`
+
+FSM - finite-state machine - abstract machine that can do exactly one of a finite states at any given time
+![congestion-control](./img/congestion-control.png)
+assuming that losses are indicated by 3x `duplicate ACK`s rather than `timeouts` - TCP congestion consist of linear (additive) increase in `cwnd` (1 `MSS`/`RTT`) and than halving (multiplicative decrease) of `cwnd` on 3x `duplicate ACK`s
+refered to as `additive-increase, multiplicative-decrease` (`AIMD`) form of congestion control
+
+
+>case study revealed that server requires 3 TCP `windows` (during `slow start`) for a search query 
+responce time ~ 4x`RTT` 
+(1 to set up `SYN` - `SYN/ACK` + 3 `windows` of data)
+
+>`TCP splitting` - breaking TCP connection at front-end server
+*Client* -TCP-> nearest *front-end* server -TCP with v. large `congestion window`-> *back-end* server
+reponse time ~ 4x `RTT` [^FE] + `RTT`[^BE] + processing time
+if *front-end* server close to *client* - responce time ~ `RTT`
+thus `TCP splitting` can reduce network delay roughly form 4x`RTT` => `RTT`
+`TCP splitting` helps reduce TCP `retransmissions delays` caused by losses in `access networks`
+
+TCP CUBIC [RFC 8312](https://datatracker.ietf.org/doc/html/rfc8312):
+- changes `congestion avoidance` phase:
+	- `W`[^max] 
