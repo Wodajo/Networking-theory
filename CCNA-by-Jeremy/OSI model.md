@@ -2,7 +2,7 @@ networking model - categorise, provides structure for networking protocols (set 
 
 OSI open systems interconnection
 
-ajacent-layer interaction - moving up&down OSI stack  
+adjacent-layer interaction - moving up&down OSI stack  
 same-layer interaction
 
 PDU - protocol data units (e.g. data, segment, datagram, packet, frame, bit)

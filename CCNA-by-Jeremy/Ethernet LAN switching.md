@@ -21,9 +21,12 @@ if payload < 46 -> zeros padding
 MAC (`Media Access Control`) aka BIA (`Burned-In Address`):
 OUI (`Organizationally Unique Identifier`) - first 3 bytes (6 hex digits) of MAC
 
-MAC address table - map MAC to port on switches
+`MAC address table` - map MAC to port on switches
+switch dynamically populate MAC address table form frame source field (removed after 5 min of inactivity)
+THEREFORE - ping should populate MAC address table
+(ICMP Echo request - dynamic MAC of sender, ICMP Echo reply - dynamic MAC of receiver)
 
-unknown unicast frame - switch dynamically learn MAC form source frame field (removed after 5 min of inactivity) -> flood LAN
+unknown unicast frame - dynamic MAC (MAC address table populated based on frame source field) -> flood LAN
 known unicast frame - forward to destination
 
 
@@ -31,9 +34,10 @@ ARP (`Address Resolution Protocol`):
 ARP request - broadcast (destinated at FFFF:FFFF:FFFF)
 ARP reply - unicast
 
-ARP table:
+`ARP table`: - map MAC to IP
 static - default entry
-dynamic - learned via ARP
+dynamic - learned via `ARP reply`
 
-ping - uses ICMP Echo request & ICMP Echo reply (part of IP stack) -> rely on ARP to get MAC needed to forward `eth. frames` to node with targeted IP address.
+ping - uses ICMP Echo request & ICMP Echo reply (part of IP stack) -> rely on ARP to get MAC *before* actually sending ICMP Echo request
+MAC is needed to forward `eth. frames` to node with targeted IP address.
 That's why first ping fails (timeout during ARP resolution) 

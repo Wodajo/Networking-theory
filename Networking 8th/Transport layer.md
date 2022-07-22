@@ -318,3 +318,30 @@ e.g.
 
 `DCCP` (`Datagram Congestion Control Protocol`) and `DCQCN` (`Data Center Congestion Notification`) also make use of `ECN`
 
+
+
+##### QUIC - application layer on UDP
+(`Quick UDP Internet Connections`) - designed to improve performance of transport-layer services for (slimmed but improved) `HTTPS/2` -> in future `HTTP/3` will incorporate `QUIC` and "slimmed" `HTTP/2`
+
+- connection-oriented & secure:
+	- `src. & dst. connection ID` - for connection state
+	- all packets encrypted
+	- handshakes needed to establish connection combined with those needed for authentication & encryption (faster)
+- streams:
+	- several *different* application-layer "streams" multiplexed through single `QUIC` connections
+	- once `QUIC` established - new "streams" can be quickly added
+	- "stream" - abstraction for reliable, in-order, bi-directional data delivery.
+	  In `HTTP/3` context - each Web page = different stream
+	  each has `stream ID`
+- reliable (based on `TCP NewReno` [RFC 6582](https://www.rfc-editor.org/rfc/rfc6582))
+	- reliable, in-order delivery
+	- for each stream *separatly* -> lesser `HOL` blocking problems than in `TCP`
+	  (lost bytes blocks only currrent stream, not whole connection)
+- `TCP` congestion-control friendly :)
+- Application-layer timescaling - application-update timescales (ramy czasowe) are much faster than TCP or UDP update timescales
+
+both `connection ID ` & `stream ID` in `QUIC` packet header
+data from multiple streams might be contained within single `QUIC` segment (carried over UDP)
+
+this concept (multiple application-layer "stream" multiplexing through a single connection) was pioneered by `SCTP` (`Stream Control Transmission Protocol`)
+(used in control plane protocols of `4G`/`5G` cellular wireless networks)

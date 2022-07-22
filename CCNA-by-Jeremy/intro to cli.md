@@ -1,6 +1,6 @@
 may be a physical port (e.g. `RJ-45`, `USB mini B`)
 
-`RJ45` use `Rollovercable`  
+`RJ-45` use `Rollovercable`  
 pins pairs:  1-8,  2-7,  3-6,  4-5,  5-4,  6-3,  7-2,  8-1
 
 You need terminal emulator - `PuTTy` is a popular choice. If connected physically use "Serial" option  

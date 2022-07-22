@@ -5,6 +5,7 @@ To add `wireshark` to `$PATH`:
 - Windows:
 	- Control Panel -> System -> Advanced -> Environment variables ...
 	  You have to reboot to see changes
+	  DOES IT WORK?:<
 
 
 What if I spoof `RST`? (to try to disconnect someone)
