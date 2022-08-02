@@ -1,6 +1,3 @@
-Why is `recv. window` field so small [16 bits] when `seq. nr. field` is [32 bits]?
-I get `recv. window` <= 1/2 `seq. nr. field`, but thats a huge difference
-
 To add `wireshark` to `$PATH`:
 - Windows:
 	- Control Panel -> System -> Advanced -> Environment variables ...

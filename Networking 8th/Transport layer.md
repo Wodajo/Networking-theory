@@ -4,11 +4,11 @@ IP: - packets (general term)
 ##### Overview
 process-to-process communication
 
-- UDP: - datagrams
+- UDP (`User Datagram Protocol`): - datagrams
 	- unreliable (no gurantee of delivery -> order)
 	- not regulated (can send at any rate for as long as it pleases)
 	- integrity&error checking
-- TCP: - segments
+- TCP (`Transmission Control Protocol`): - segments
 	- integrity&error checking
 	- reliable (flow control, sequence numbers, acknowledgements, timeouts) -> delivered to process correctly & in order
 	- congestion control (regulate rate at which the sending sides can send traffic into network)
@@ -30,7 +30,7 @@ TCP socket identified by - dst. IP address & dst. port nr. AND source IP address
 
 e.g. DNS (avoid connection establishment delay), SNMP simple network management protocol (must run even over network in stressed state)
 
-It's possible to bake reliability into application itself, and thus - use fast and reliable comunication without congestion control (QUIC protocol)
+It's possible to bake reliability into application itself, and thus - use fast and reliable communication without congestion control
 BUT
 congestion control is needed. When routers are in congested state - only few packets would successfully transverse the source-destination path.  
 TCP senders would get especially fked, bcos they do decrease they're sending rate
@@ -41,7 +41,7 @@ TCP senders would get especially fked, bcos they do decrease they're sending rat
 - header - 4 fields, each consisting 2 bytes:
 	- source port
 	- dst. port
-	- lengh - datagram lengh (header + application data) in bytes
+	- lengh - datagram length (header + application data) in bytes
 	i.e. max. = 2^16 = 65,536 kB/datagram
 	- checksum - used by receiving host to check for errors. Calculated also by few of the IP header fields and link-layer protocols. You never know if error occured e.g. when datagram was stored in router memory.
 	It looks like lower level functions are redundant
@@ -50,7 +50,7 @@ TCP senders would get especially fked, bcos they do decrease they're sending rat
 
 ##### TCP
 ###### Reliable data transfer - contemplations:
-- ARQ (Automatic Repeat reQuest protocols) - in computer networking - error control method using both **positive acknowledgements** (e.g. "I understand") and **negative acknowledgements** ("Please repeat that"):
+- ARQ (`Automatic Repeat reQuest protocols`) - in computer networking - error control method using both **positive acknowledgements** (e.g. "I understand") and **negative acknowledgements** ("Please repeat that"):
 	- error detection
 	- receiver feedback
 	- retransmission
@@ -58,7 +58,7 @@ TCP senders would get especially fked, bcos they do decrease they're sending rat
 - [GBN (Go-Back-N) aka sliding-window protocol](https://media.pearsoncmg.com/aw/ecs_kurose_compnetwork_7/cw/content/interactiveanimations/go-back-n-protocol/index.html)
 	- can send multiple packets without waiting for ACK BUT only up to max. nr. of N (aka `window size`)
 	- if `base` is sequence nr. of oldest unACKed packet and `nextseqnum` is the smallest unused sequence nr. -> [0, base-1] - packets sent & ACKed, [base, nextseqnum - 1] - sent NOT ACKed, [nextseqnum, base + N - 1] - not sent yet, but can be if upper layer passes data, [>= base + N] - cannot be sent until `base` is ACKed
-	- if *k* is the nr. of bits in packet squence nr. field -> [0, 2^k -1] seq. nr. range
+	- if *k* is the nr. of bits in packet seq. nr. field -> [0, 2^k -1] seq. nr. range
 	in TCP - 32 bit seq. nr. field
 	- timer tracks `ACK` of the oldest packet. If an `ACK` is received but there are still additional notACKed packets - timer restart. If timeout occurs - all sent unACKed packets are resent
 	- If receiver get correct packet, in-order it sends ACK and delivers packet to upper layer.
@@ -86,8 +86,8 @@ That's why we have (TTL time to live). In TCP extensions for high-speed networks
 ###### TCP connection basics
 - full-duplex
 - unicast (multicast is NOT possible with TCP)
-- Data stream from upper layer -> `send buffer`.
-  TCP can grab chunks of data and pass into network.
+- Data stream from upper layer -> `send buffer`
+  TCP can grab chunks of data and pass into network
 - `MSS` (maximum segment size) - maximum chunk of application-layer data in segment.
   Set by first determining `MTU` (maximum transmission unit) - length of the largest link-layer frame that can be sent by the local sending host -> `MSS` is set so as to ensure `TCP segment` plus `TCP/IP header` length will fit into single link-layer frame (typically ~ 40 bytes)
 Both `Ethernet` and `PPP` link-layer protocols have `MTU` ~ 1500 bytes -> typical `MSS` ~ 1460 bytes.
@@ -97,13 +97,13 @@ RFC's don't regulate if receiver should discard or buffer out-of-order packets, 
 
 ###### TCP segment structure
 - header:
-	- source port [16 bit = 2 bytes]
+	- src. port [16 bit = 2 bytes]
 	- dst. port [16 bit = 2 bytes]
 	- HLEN (header length field) [4 bit] - lengh of TCP header in 32-bit (4 byte) words. E.g. if [TCP header = 20 bytes (no options - typical/minimal segment header)] -> field will hold decimal 5 (5X4=20 bytes). Max. field size is 2^1+2^2+2^3+2^4=15. 15X4=60, and 60 bytes is max. TCP header size.
 	- checksum [16 bit = 2 bytes]
 	- seq. nr. field [32 bit = 4 bytes]
 	- ack. nr. field [32 bit = 4 bytes]
-	- receive window [16 bit = 2 bytes]
+	- receive window [16 bit = 2 bytes] - for `flow control`
 	- options field - optional. For sender-receiver `MSS negotiation`, `window scaling factor`, `time-stamping` ([RFC 854](https://www.rfc-editor.org/rfc/rfc854) and [RFC 1323](https://datatracker.ietf.org/doc/html/rfc1323)) [0-40 bytes]
 	- flag field [6 bit]:
 		- `ACK` - bit set if value carried in ack. nr. field is valid
@@ -160,7 +160,7 @@ If 3 `duplicate ACK` - sender knows that following segment has been lost -> `fas
 ![fast-retransmitt](./img/fast-retransmitt.png)
 
 When multiple packets are lost from one `window` of data - TCP may experience poor performance
-`selective acknoledgment (SACK) option` [RFC 2018](https://datatracker.ietf.org/doc/html/rfc2018) - allows receiver to acknowledge out-of-order segments selectively.  
+`selective acknowledgment (SACK) option` [RFC 2018](https://datatracker.ietf.org/doc/html/rfc2018) - allows receiver to acknowledge out-of-order segments selectively.  
 Combined with `selective retransmissions` policy - weapon against such limitations
 
 ###### Flow control
@@ -185,7 +185,7 @@ so as not to overflow the buffer:
 if above == `True` -> sender is sure she'll not overflow receiver's buffer
 
 If `rwnd` = 0 - there is a risk that receiver doesn't have anything to send to sender (with piggybacked `rwnd`) -> sender might get stuck unable to send data!
-If `rwnd` = 0 -> sender **has to** continue sending one-data-byte segemnts  
+Therefore If `rwnd` = 0 -> sender **has to** continue sending one-data-byte segments  
 (receiver `ACK` them with piggybacked `rwnd`)  
 
 ###### Connection management
