@@ -81,7 +81,8 @@ TCP senders would get especially fked, bcos they do decrease they're sending rat
 	- If reciever get packet it already have - it sends back `ACK`. Previous ACK might have been lost
 
 If packet reordering is possible, than "lost in network" old packets (e.g. ACK) with seq. nr. `x` might arrive, even tho `x` is not in receiver nor sender `window`.
-That's why we have (TTL time to live). In TCP extensions for high-speed networks TTL ~3 min. **Sender won't use seq. nr. until he's sure there is no such packet in network.**
+That's why we have (TTL time to live). In TCP extensions for high-speed networks TTL ~3 min.
+**Sender won't use seq. nr. until he's sure there is no such packet in network.**
 
 ###### TCP connection basics
 - full-duplex
@@ -227,7 +228,7 @@ If server receives `SYN` for closed port -> `RST`
 	- `end-to-end congestion control` - end systems infer (wnioskują) network congestion based only on network behavior
 	  e.g.
 	  TCP segment loss (indicated by `timeout` or 3x `duplicate ACK` (with "original" packet `ACK` that's 4x `ACK`)) -> decrease of `window size`
-	  increasing `round-trip segment delay` - might also be an indicatios of network congestion
+	  increasing `round-trip segment delay` - might also be an indicatior of network congestion
 	  "classic" TCP congestion control uses `end-to-end congestion control`
 
 	- `network-assisted congestion control` - router provide explicit feedback

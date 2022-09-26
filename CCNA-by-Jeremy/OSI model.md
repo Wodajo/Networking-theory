@@ -1,4 +1,4 @@
-networking model - categorise, provides structure for networking protocols (set of logical rules) and standards (set of rules like type of hardware)  
+networking model - categorize, provides structure for networking protocols (set of logical rules) and standards (set of rules like type of hardware)  
 
 OSI open systems interconnection
 
