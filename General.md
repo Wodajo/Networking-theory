@@ -21,3 +21,6 @@ in `fast recovery`:
 increase `cwnd` by 1 `MSS` every `duplicate ACK`  received for missing segment that caused TCP to enter `fast recovery`
 BUT
 It is nonetheless decreased (`cwnd` = `sstresh` + 3`MSS`) in `congestion avoidance` !!!
+
+
+

@@ -14,7 +14,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Networking 8th/Transport layer.md",
+                "file": "Networking 8th/Network layer.md",
                 "mode": "source",
                 "source": false
               }
@@ -33,7 +33,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "General.md",
+                "file": "Networking 8th/Transport layer.md",
                 "mode": "source",
                 "source": false
               }
@@ -97,7 +97,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Networking 8th/Transport layer.md",
+                "file": "Networking 8th/Network layer.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -117,15 +117,15 @@
   },
   "active": "f188cb232356957b",
   "lastOpenFiles": [
-    "General.md",
     "Networking 8th/Transport layer.md",
-    "Networking 8th/Network layer - data plane.md",
+    "Networking 8th/Network layer.md",
+    "Networking 8th/General.md",
+    "General.md",
+    "README.md",
     "CCNA-by-Jeremy/Ethernet LAN switching.md",
     "CCNA-by-Jeremy/Interfaces and cables.md",
     "CCNA-by-Jeremy/IPv4 addressing.md",
     "CCNA-by-Jeremy/intro to cli.md",
-    "CCNA-by-Jeremy/OSI model.md",
-    "CCNA-by-Jeremy/notes.md",
-    "CCNA-by-Jeremy/Network devices.md"
+    "CCNA-by-Jeremy/OSI model.md"
   ]
 }
