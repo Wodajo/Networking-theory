@@ -1,0 +1,131 @@
+{
+  "main": {
+    "id": "8968b7db9782ba5b",
+    "type": "split",
+    "children": [
+      {
+        "id": "c91a6171de8a58ab",
+        "type": "tabs",
+        "dimension": 69.34046345811052,
+        "children": [
+          {
+            "id": "f188cb232356957b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Networking 8th/Transport layer.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "289bba4a5b7d4f65",
+        "type": "tabs",
+        "dimension": 30.65953654188948,
+        "children": [
+          {
+            "id": "bad556b6e78ebe82",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "General.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "7143a90cd0d851e9",
+    "type": "split",
+    "children": [
+      {
+        "id": "309ce682e3b29493",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3e66888673530ba5",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "f0432d193f802ccb",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "right": {
+    "id": "38d9a7e5f2bf9ef2",
+    "type": "split",
+    "children": [
+      {
+        "id": "e1edefad6be7b1d1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a1d635bd69a72a66",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Networking 8th/Transport layer.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "f188cb232356957b",
+  "lastOpenFiles": [
+    "General.md",
+    "Networking 8th/Transport layer.md",
+    "Networking 8th/Network layer - data plane.md",
+    "CCNA-by-Jeremy/Ethernet LAN switching.md",
+    "CCNA-by-Jeremy/Interfaces and cables.md",
+    "CCNA-by-Jeremy/IPv4 addressing.md",
+    "CCNA-by-Jeremy/intro to cli.md",
+    "CCNA-by-Jeremy/OSI model.md",
+    "CCNA-by-Jeremy/notes.md",
+    "CCNA-by-Jeremy/Network devices.md"
+  ]
+}
