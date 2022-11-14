@@ -9,7 +9,7 @@
 	- type/length [2 bytes]
 	  if =< 1500 - length of packet[bytes]
 	  if 1536 => - type of packet
-	  (usually IPv4 (0x0800 = 2048 ) or IPv6 (0x86DD = 34525))
+	  (usually IPv4 (0x0800 = 2048) or IPv6 (0x86DD = 34525))
 - payload (packet) [MTU]
 - trailer:
 	- FCS (`Frame Check Sequence`) [4 byte] - detect corrupted data with CRC (`Cyclic Redundancy Check`)

@@ -39,7 +39,7 @@ TCP senders would get especially fked, bcos they do decrease they're sending rat
 [RFC 768](https://datatracker.ietf.org/doc/html/rfc768)
 
 - header - 4 fields, each consisting 2 bytes:
-	- source port
+	- src. port
 	- dst. port
 	- lengh - datagram length (header + application data) in bytes
 	i.e. max. = 2^16 = 65,536 kB/datagram
@@ -90,8 +90,9 @@ That's why we have (TTL time to live). In TCP extensions for high-speed networks
 - Data stream from upper layer -> `send buffer`
   TCP can grab chunks of data and pass into network
 - `MSS` (maximum segment size) - maximum chunk of application-layer data in segment.
-  Set by first determining `MTU` (maximum transmission unit) - length of the largest link-layer frame that can be sent by the local sending host -> `MSS` is set so as to ensure `TCP segment` plus `TCP/IP header` length will fit into single link-layer frame (typically ~ 40 bytes)
+  Set by first determining `MTU` (maximum transmission unit) - length of the largest PDU (link-layer frame usually) that can be sent by the local sending host -> `MSS` is set so as to ensure `TCP segment` plus `TCP/IP header` length will fit into single link-layer frame (typically ~ 40 bytes)
 Both `Ethernet` and `PPP` link-layer protocols have `MTU` ~ 1500 bytes -> typical `MSS` ~ 1460 bytes.
+ Link layer add 18 bits of frame header and FCS, but that's not taken as a part of network layer MTU
 Sometimes to estimate `MSS`, we use `MTU path` - largest link-layer frame that can be sent over all links from source -> dst.
 - Data from received packets -> `receive buffer` -> application layer
 RFC's don't regulate if receiver should discard or buffer out-of-order packets, but the latter choice is common

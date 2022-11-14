@@ -6,7 +6,7 @@
       {
         "id": "c91a6171de8a58ab",
         "type": "tabs",
-        "dimension": 69.34046345811052,
+        "dimension": 57.04099821746881,
         "children": [
           {
             "id": "f188cb232356957b",
@@ -14,18 +14,31 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Networking 8th/Network layer.md",
+                "file": "CCNA-by-Jeremy/Ethernet LAN switching.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "a7a7c8797f3917e9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "CCNA-by-Jeremy/Ethernet LAN switching.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       },
       {
         "id": "289bba4a5b7d4f65",
         "type": "tabs",
-        "dimension": 30.65953654188948,
+        "dimension": 42.95900178253119,
         "children": [
           {
             "id": "bad556b6e78ebe82",
@@ -97,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Networking 8th/Network layer.md",
+                "file": "CCNA-by-Jeremy/Ethernet LAN switching.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,17 +128,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "f188cb232356957b",
+  "active": "a7a7c8797f3917e9",
   "lastOpenFiles": [
-    "Networking 8th/Transport layer.md",
-    "Networking 8th/Network layer.md",
-    "Networking 8th/General.md",
-    "General.md",
-    "README.md",
+    "CCNA-by-Jeremy/step-by-step Eth. LAN switching.md",
+    "CCNA-by-Jeremy/OSI model.md",
     "CCNA-by-Jeremy/Ethernet LAN switching.md",
+    "CCNA-by-Jeremy/img/eth_switch.png.md",
+    "Networking 8th/Network layer - data plane.md",
+    "Networking 8th/General.md",
+    "CCNA-by-Jeremy/intro to cli.md",
     "CCNA-by-Jeremy/Interfaces and cables.md",
     "CCNA-by-Jeremy/IPv4 addressing.md",
-    "CCNA-by-Jeremy/intro to cli.md",
-    "CCNA-by-Jeremy/OSI model.md"
+    "CCNA-by-Jeremy/Network devices.md"
   ]
 }

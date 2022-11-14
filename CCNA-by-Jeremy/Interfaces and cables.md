@@ -2,7 +2,6 @@ Ethernet - collection of network protocols&standards
 defined in IEEE (Institute od Electrical and Electronics Engineers) 802.3 standard in 1983
 
 
-
 Cables:
 
 Copper-based
@@ -12,15 +11,15 @@ Copper-based
 | 802.3u        | Fast Ethernet    | 100 Mbps | 100BASE-T     | 100m.       |
 | 802.3ab       | Gigabit Ethernet | 1 Gbps   | 1000BASE-T    | 100m.       |
 | 802.3an       | 10 Gig Ethernet  | 10 Gbps  | 10GBASE-T     | 100m.       |
-e.g. 100BASE-t -> 100 (speed [Mbps]),  BASE (baseband signaling), T - twisted pair
+e.g. 100BASE-T -> 100 (speed [Mbps]),  BASE (baseband signaling), T - twisted pair
 
 - UTP unshielded twisted pair: - have 4 pairs of wires
 	- 10BASE-T & 100BASE-T - use 2 pairs (4 wires)
-	PC, fw & router NIC <---> swich NIC: - needs [straight-through cable]
+	PC, fw & router NIC <---> switch NIC: - needs [straight-through cable]
 		TX (transmit) pins 1&2 ---> RX (receive) pins 1&2
 		RX pins 3&6 <--- TX pins 3&6
-	PC <-> PC, router <-> router, router <-> PC, swich <-> swich: - needs [crossover cable]
-		pins 1&2 (PC, fw&router - TX, swich - RX) ---> pins 3&6 (PC, fw&router - RX, swich - TX)
+	PC <-> PC, router <-> router, router <-> PC, switch <-> switch: - needs [crossover cable]
+		pins 1&2 (PC, fw&router - TX, switch - RX) ---> pins 3&6 (PC, fw&router - RX, switch - TX)
 	[auto MDI-X] - can detect on what pins neighbour NIC is TX&RX and adjust  on what pins they're TX&RX. Old devices might not support auto MDI-X
 	
 	- 1000BASE-T & 10GBASE-T - use 4 pairs (8 wires)
