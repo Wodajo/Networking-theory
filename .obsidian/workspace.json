@@ -26,7 +26,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CCNA-by-Jeremy/Ethernet LAN switching.md",
+                "file": "CCNA-by-Jeremy/step-by-step Eth. LAN switching.md",
                 "mode": "source",
                 "source": false
               }
@@ -110,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CCNA-by-Jeremy/Ethernet LAN switching.md",
+                "file": "CCNA-by-Jeremy/step-by-step Eth. LAN switching.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -130,9 +130,9 @@
   },
   "active": "a7a7c8797f3917e9",
   "lastOpenFiles": [
+    "CCNA-by-Jeremy/Ethernet LAN switching.md",
     "CCNA-by-Jeremy/step-by-step Eth. LAN switching.md",
     "CCNA-by-Jeremy/OSI model.md",
-    "CCNA-by-Jeremy/Ethernet LAN switching.md",
     "CCNA-by-Jeremy/img/eth_switch.png.md",
     "Networking 8th/Network layer - data plane.md",
     "Networking 8th/General.md",
