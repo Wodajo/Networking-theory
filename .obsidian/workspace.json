@@ -31,9 +31,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "08105a8b87948505",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "CCNA-by-Jeremy/IPv4 static routing.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       },
       {
         "id": "289bba4a5b7d4f65",
@@ -110,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Networking 8th/Transport layer.md",
+                "file": "CCNA-by-Jeremy/IPv4 static routing.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -128,17 +140,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "bad556b6e78ebe82",
+  "active": "08105a8b87948505",
   "lastOpenFiles": [
-    "CCNA-by-Jeremy/step-by-step Eth. LAN switching.md",
+    "CCNA-by-Jeremy/IPv4 addressing.md",
+    "CCNA-by-Jeremy/interfaces and cables.md",
     "CCNA-by-Jeremy/Ethernet LAN switching.md",
+    "CCNA-by-Jeremy/IPv4 static routing.md",
+    "CCNA-by-Jeremy/step-by-step Eth. LAN switching.md",
+    "Networking 8th/Transport layer.md",
     "CCNA-by-Jeremy/OSI model.md",
     "CCNA-by-Jeremy/img/eth_switch.png.md",
     "Networking 8th/Network layer - data plane.md",
-    "Networking 8th/General.md",
-    "CCNA-by-Jeremy/intro to cli.md",
-    "CCNA-by-Jeremy/Interfaces and cables.md",
-    "CCNA-by-Jeremy/IPv4 addressing.md",
-    "CCNA-by-Jeremy/Network devices.md"
+    "Networking 8th/General.md"
   ]
 }
