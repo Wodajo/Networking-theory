@@ -1,3 +1,5 @@
+NOT FINISHED STP & DTP
+
 ![eth](./img/eth_switch.png)
 PC0 (192.168.1.1) want to ping PC4 (192.168.1.4)
 
@@ -58,7 +60,7 @@ PC3: (-> ARP reply)
 4. (L1) eth. interface sends out frame
 
 
-Switch2:
+Switch1:
 1. (L1) eth. interface receive frame
 2. (L2) frame src. MAC address does NOT exist in the MAC table -> Switch `adds a new MAC entry` to its table
    unicast frame -> Switch looks in its MAC table for the dst. MAC address
@@ -74,7 +76,7 @@ Router: (same as Switch1)
 4. (L1) eth. interface sends out frame
 
 
-Switch1: (same as Switch2 and Router)
+Switch0: (same as Switch1 and Router)
 1. (L1) eth. interface receive frame
 2. (L2) frame src. MAC address does NOT exist in the MAC table -> Switch `adds a new MAC entry` to its table
    It's a unicast frame -> Switch looks in its MAC table for the dst. MAC address
@@ -90,7 +92,7 @@ PC1: (-> ICMP echo request)
 4. (L1) eth. interface sens out frame
 
 
-Switch1:
+Switch0:
 1. (L1) eth. interface receive frame
 2. (L2) frame src. MAC address found in the MAC table of Switch
    It's a unicast frame -> Switch looks in its MAC table for the dst. MAC address
@@ -106,7 +108,7 @@ Router:
 4. (L1) eth. interface sends out frame
 
 
-Switch2:
+Switch1:
 1. (L1) eth. interface receive frame
 2. (L2) frame src. MAC address found in the MAC table of Switch
    It's a unicast frame -> Switch looks in its MAC table for the dst. MAC address
@@ -126,7 +128,7 @@ PC3: (-> ICMP echo reply)
 6. (L1) eth. interface sends frame
 
 
-Switch2:
+Switch1:
 1. (L1) eth. interface receive frame
 2. (L2) frame src. MAC address found in the MAC table of Switch
    It's a unicast frame -> Switch looks in its MAC table for the dst. MAC address
@@ -142,7 +144,7 @@ Router:
 4. (L1) eth. interface sends out frame
 
 
-Switch1:
+Switch0:
 1. (L1) eth. interface receive frame
 2. (L2) frame src. MAC address found in the MAC table of Switch
    It's a unicast frame -> Switch looks in its MAC table for the dst. MAC address
@@ -156,3 +158,51 @@ PC1:
 3. (L3) packet's dst. IP address `matches the device's IP` address or the **broadcast address** -> device decapsulates the packet
    packet is an ICMP packet. The ICMP process processes it -> ICMP process received an echo reply message
    ping process received an `echo reply message`
+
+****
+#### Spanning Tree Protocol
+switches&network bridges (Layer 2) protocol for creating loical topologies without loops.
+BPDU (bridge protocol data unit) - received even on blocked ports. Use special multicast MAC address
+
+Switch0:
+1. (L2) STP process sends out a configuration BPDU -> device encapsulates the PDU into an eth. frame
+   Switch unicasts the frame out to the access ports (all of them?)
+2. (L1) eth. interface sends out frames
+
+PC1&PC2:
+1. (L1) eth. interface receive frame
+2. (L2) frame's dst. MAC address matches the **receiving port's MAC** address, the **broadcast address**, or a `multicast address` -> device does `NOT have a service that accepts this frame` -> drops the frame
+
+Router:
+1. (L1) eth. interface receive frame
+2. (L2) frame src. MAC address was found in the MAC table of Router
+   frame's destination MAC address matches the **receiving port's MAC** address, the **broadcast address**, or a `multicast address` -> device decapsulates the PDU from the eth. frame
+   STP process receives a BPDU on FastEthernet0
+   BPDU is a `configuration BPDU` -> received BPDU contains repeated information
+3. (L2) STP process `sends out a configuration BPDU` -> device encapsulates the PDU into an eth. frame
+   Router unicasts the frame out to the access ports
+
+
+Switch1:
+1. (L1) eth. interface receive frame
+2. (L2) frame src. MAC address was found in the MAC table of Switch
+   frame's destination MAC address matches the **receiving port's MAC** address, the **broadcast address**, or a `multicast address` -> device decapsulates the PDU from the eth. frame
+   STP process receives a BPDU on FastEthernet0/1
+   BPDU is a `configuration BPDU` -> received BPDU contains repeated information
+3. (L2) STP process `sends out a configuration BPDU` -> device encapsulates the PDU into an eth. frame
+   Switch unicasts the frame out to the access ports
+
+
+PC3&PC4:
+1. (L1) eth. interface receive frame
+2. (L2) frame's dst. MAC address matches the **receiving port's MAC** address, the **broadcast address**, or a `multicast address` -> device does `NOT have a service that accepts this frame` -> drops the frame
+
+****
+#### Dynamic Trunking Protocol
+for the purpose of negotiating [trunking](https://en.wikipedia.org/wiki/Trunking "Trunking") on a link between two [VLAN](https://en.wikipedia.org/wiki/VLAN "VLAN")-aware [switches](https://en.wikipedia.org/wiki/Network_switch "Network switch"), and for negotiating the type of trunking [encapsulation](https://en.wikipedia.org/wiki/Encapsulation_(networking) "Encapsulation (networking)") to be used
+????
+DTP frame - ????
+
+Switch1:
+1. (L2) device sends out a DTP frame on FastEthernet0/3 -> device encapsulates the PDU into an eth. frame
+   Switch unicasts the frame out to the access port.
