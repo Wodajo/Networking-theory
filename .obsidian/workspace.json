@@ -38,7 +38,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CCNA-by-Jeremy/IPv4 static routing.md",
+                "file": "Networking 8th/Network layer - data plane.md",
                 "mode": "source",
                 "source": false
               }
@@ -122,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CCNA-by-Jeremy/IPv4 static routing.md",
+                "file": "Networking 8th/Network layer - data plane.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -142,10 +142,10 @@
   },
   "active": "08105a8b87948505",
   "lastOpenFiles": [
+    "CCNA-by-Jeremy/IPv4 static routing.md",
     "CCNA-by-Jeremy/IPv4 addressing.md",
     "CCNA-by-Jeremy/interfaces and cables.md",
     "CCNA-by-Jeremy/Ethernet LAN switching.md",
-    "CCNA-by-Jeremy/IPv4 static routing.md",
     "CCNA-by-Jeremy/step-by-step Eth. LAN switching.md",
     "Networking 8th/Transport layer.md",
     "CCNA-by-Jeremy/OSI model.md",
