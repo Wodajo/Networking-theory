@@ -81,12 +81,12 @@ TCP senders would get especially fked, bcos they do decrease they're sending rat
 	- If reciever get packet it already have - it sends back `ACK`. Previous ACK might have been lost
 
 If packet reordering is possible, than "lost in network" old packets (e.g. ACK) with seq. nr. `x` might arrive, even tho `x` is not in receiver nor sender `window`.
-That's why we have (TTL time to live). In TCP extensions for high-speed networks TTL ~3 min.
+That's why we have TTL (time to live) IP header. In TCP extensions for high-speed networks TTL ~3 min.
 **Sender won't use seq. nr. until he's sure there is no such packet in network.**
 
 ###### TCP connection basics
 - full-duplex
-- unicast (multicast is NOT possible with TCP)
+- unicast (multicast is **NOT possible** with TCP)
 - Data stream from upper layer -> `send buffer`
   TCP can grab chunks of data and pass into network
 - `MSS` (maximum segment size) - maximum chunk of application-layer data in segment.
@@ -284,16 +284,16 @@ assuming that losses are indicated by 3x `duplicate ACK`s rather than `timeouts`
 refered to as `additive-increase, multiplicative-decrease` (`AIMD`) form of congestion control
 
 
->case study revealed that server requires 3 TCP `windows` (during `slow start`) for a search query 
-responce time ~ 4x`RTT` 
-(1 to set up `SYN` - `SYN/ACK` + 3 `windows` of data)
+>case study revealed that server requires 3 TCP `windows` (during `slow start`) for a search query
+>responce time ~ 4x`RTT` 
+>(1 to set up `SYN` - `SYN/ACK` + 3 `windows` of data)
 
 >`TCP splitting` - breaking TCP connection at front-end server
-*Client* -TCP-> nearest *front-end* server -TCP with v. large `congestion window`-> *back-end* server
-reponse time ~ 4x `RTT` [^FE] + `RTT`[^BE] + processing time
-if *front-end* server close to *client* - responce time ~ `RTT`
-thus `TCP splitting` can reduce network delay roughly form 4x`RTT` => `RTT`
-`TCP splitting` helps reduce TCP `retransmissions delays` caused by losses in `access networks`
+>*Client* -TCP-> nearest *front-end* server -TCP with v. large `congestion window`-> *back-end* server
+>reponse time ~ 4x `RTT` [^FE] + `RTT`[^BE] + processing time
+>if *front-end* server close to *client* - responce time ~ `RTT`
+>thus `TCP splitting` can reduce network delay roughly form 4x`RTT` => `RTT`
+>`TCP splitting` helps reduce TCP `retransmissions delays` caused by losses in `access networks`
 
 TCP CUBIC [RFC 8312](https://datatracker.ietf.org/doc/html/rfc8312):
 - changes `congestion avoidance` phase:
@@ -313,8 +313,10 @@ e.g.
 	- use 2 [bits] from `type of service` field of IP header
 		- 2 [bits] -> 4 possible configurations:
 			1. 00 - sender set to say that sender or receiver are NOT `ECN`-capable
-			2. 01 - sender-set to say both sender & receiver are `ECN`-capable (I dunno why bother with "01" and "10" since it's job looks the same)
+			2. 01 - sender-set to say both sender & receiver are `ECN`-capable
 			3. 10 - sender-set to say both sender & receiver are `ECN`-capable
+			   (I dunno why bother with "01" and "10" since it's job looks the same.
+			   Maybe one bit iss sset by sender and one by receiver?)
 			4. 11 - Congestion Experienced
 	router experience congestion (hopefully *before* packet loss) - set `ECN` bit in IP header-> receiver -TCP `ACK` piggybacking `ECE` (`explicit congestion notification echo` bit)-> sender - set `cwnd` = `cwnd`/2 && set `CWR` (`Congestion Window Reduced`) bit in the next TCP header
 

@@ -85,7 +85,7 @@ bigger RTTs -> TCP senders are less responsive to incipient congestion control/p
 Bufferbloat:
 > Suppose that at time t = 0, a burst of 25 packets arrives to the queue.
 > One of these queued packets is then transmitted once every 20 ms, so that  at t = 200 msec, the first ACK arrives, just as the 21st packet is being transmitted.
-> This ACK arrival causes the TCP sender to send another packet, which is queued at the outgoing link of the home router ->at t = 220, the next ACK arrives, and another TCP segment is released by the gamer `and is queued, as the 22nd packet` is being transmitted, and so on.
+> This ACK arrival causes the TCP sender to send another packet, which is queued at the outgoing link of the home router -> at t = 220, the next ACK arrives, and another TCP segment is released by the gamer `and is queued, as the 22nd packet` is being transmitted, and so on.
 > ACK clocking results in a new packet arriving at the queue every time a queued packet is sent, resulting in queue size at the home router’s outgoing link that is always five packets.
 > That is, the end-end-pipe is full (delivering packets to the destination at the path bottleneck rate of one packet every 20 ms), but the `amount of queueing delay is constant and persistent`
 > `DOCSIS 3.1` standard for cable networks recently added a specific `AQM` mechanism [RFC 8033, RFC 8034] to combat bufferbloat while preserving bulk throughput performance.
