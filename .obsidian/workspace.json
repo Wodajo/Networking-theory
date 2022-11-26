@@ -9,43 +9,31 @@
         "dimension": 57.04099821746881,
         "children": [
           {
-            "id": "f188cb232356957b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "CCNA-by-Jeremy/Ethernet LAN switching.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "a7a7c8797f3917e9",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "CCNA-by-Jeremy/step-by-step Eth. LAN switching.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "08105a8b87948505",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CCNA-by-Jeremy/OSI model.md",
+                "file": "General.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "740dbd14f0acbb6d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Networking 8th/Network layer - data plane.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       },
       {
         "id": "289bba4a5b7d4f65",
@@ -122,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Networking 8th/Transport layer.md",
+                "file": "Networking 8th/Network layer - data plane.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -140,17 +128,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "bad556b6e78ebe82",
+  "active": "740dbd14f0acbb6d",
   "lastOpenFiles": [
-    "CCNA-by-Jeremy/OSI model.md",
-    "CCNA-by-Jeremy/step-by-step Eth. LAN switching.md",
-    "Networking 8th/Network layer - data plane.md",
     "Networking 8th/Transport layer.md",
     "CCNA-by-Jeremy/IPv4 addressing.md",
-    "CCNA-by-Jeremy/IPv4 static routing.md",
-    "CCNA-by-Jeremy/interfaces and cables.md",
+    "Networking 8th/Network layer - data plane.md",
+    "General.md",
     "CCNA-by-Jeremy/Ethernet LAN switching.md",
-    "CCNA-by-Jeremy/img/eth_switch.png.md",
-    "Networking 8th/General.md"
+    "CCNA-by-Jeremy/step-by-step Eth. LAN switching.md",
+    "CCNA-by-Jeremy/IPv4 static routing.md",
+    "CCNA-by-Jeremy/intro to cli.md",
+    "CCNA-by-Jeremy/interfaces and cables.md",
+    "CCNA-by-Jeremy/OSI model.md"
   ]
 }

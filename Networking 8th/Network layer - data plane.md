@@ -100,3 +100,12 @@ arriving packets divided into classes. Round robin scheduler alternates among cl
 `WFQ` (Weighted Fair Queueing) discipline - arriving packets divided into classes.
 Each class `i` is assigned a weight `wi` -> during any interval of time during which there are call `i` packets to send - class `i` is guaranteed to receive a fraction of service equal to `wi`/sum(weight of all other currently transmitted pakets classes)
 also a `work-conserving queueing` discipline
+
+
+#### IPv4
+
+`interface` - boundry between the host and the physical link. IP address is technically associated with interface rather than host containig that interface
+
+CIDR (Classless Interdomain Routing) - pron. *cider*
+
+update last note

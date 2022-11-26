@@ -5,10 +5,7 @@ To add `wireshark` to `$PATH`:
 	  DOES IT WORK?:<
 
 
-What if I spoof `RST`? (to try to disconnect someone)
-
-
-Could I throttle everyones TCP on LAN spoofing multiple `duplicate ACK`s? (TCP Tahoe, TCP Reno, as such - TCP CUBIC)
+- Could I throttle everyones TCP on LAN spoofing multiple `duplicate ACK`s? (TCP Tahoe, TCP Reno, as such - TCP CUBIC)
 (wireguard use UDP, OpenVPN can use UDP or TCP. I checked with TCP and it seems like it could be attacked like this)
 
 in `slow start`:
@@ -22,5 +19,5 @@ increase `cwnd` by 1 `MSS` every `duplicate ACK`  received for missing segment t
 BUT
 It is nonetheless decreased (`cwnd` = `sstresh` + 3`MSS`) in `congestion avoidance` !!!
 
-
-
+- IHL in IP (and HLEN in TCP) use 4byte words to describe header length.
+  COULDN'T it be e.g.  21, 22, 23 ?
