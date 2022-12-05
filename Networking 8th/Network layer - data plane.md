@@ -108,4 +108,26 @@ also a `work-conserving queueing` discipline
 
 CIDR (Classless Interdomain Routing) - pron. *cider*
 
-update last note
+one prefix could advertise multiple networks (subnets)
+![address aggregation](./img/address_aggregation.png)
+router will use *longest prefix* matching for packet routing
+
+#### DHCP
+Dynamic Host Configuration Protocol - via UDP 68(client) & 67(server)
+
+`DHCP relay agent` - typically a router, knows where the `DHCP server` is in the subnet
+
+![DHCP](./img/DHCP.png)
+
+`DHCP discover` - UDP broadcast (dst. IP 255.255.255.255)
+src. IP, src. port, dst. IP, dst. port
+client transaction ID
+
+`DHCP server offer(s)` - UDP broadcast (dst. IP 255.255.255.255)
+src. IP, src. port, dst. IP, dst. port
+client transaction ID
+lease time
+
+`DHCP request` - echo of server-given info as IP address selection
+
+`DHCP ACK` - confirmation of requested IP address

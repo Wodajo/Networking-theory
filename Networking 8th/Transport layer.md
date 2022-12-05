@@ -91,7 +91,7 @@ That's why we have TTL (time to live) IP header. In TCP extensions for high-spee
   TCP can grab chunks of data and pass into network
 - `MSS` (maximum segment size) - maximum chunk of application-layer data in segment.
   Set by first determining `MTU` (maximum transmission unit) - length of the largest PDU (link-layer frame usually) that can be sent by the local sending host -> `MSS` is set so as to ensure `TCP segment` plus `TCP/IP header` length will fit into single link-layer frame (typically ~ 40 bytes)
-Both `Ethernet` and `PPP` link-layer protocols have `MTU` ~ 1500 bytes -> typical `MSS` ~ 1460 bytes.
+Both `Ethernet` and `PPP` link-layer protocols have `MTU` ~ 1500 bytes (that's without frame header&FCS) -> typical `MSS` ~ 1460 bytes.
  Link layer add 18 bits of frame header and FCS, but that's not taken as a part of network layer MTU
 Sometimes to estimate `MSS`, we use `MTU path` - largest link-layer frame that can be sent over all links from source -> dst.
 - Data from received packets -> `receive buffer` -> application layer

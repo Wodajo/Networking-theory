@@ -14,7 +14,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "General.md",
+                "file": "CCNA-by-Jeremy/step-by-step Eth. LAN switching.md",
                 "mode": "source",
                 "source": false
               }
@@ -26,14 +26,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Networking 8th/Network layer - data plane.md",
+                "file": "CCNA-by-Jeremy/Ethernet LAN switching.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       },
       {
         "id": "289bba4a5b7d4f65",
@@ -46,7 +45,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Networking 8th/Transport layer.md",
+                "file": "Networking 8th/Network layer - data plane.md",
                 "mode": "source",
                 "source": false
               }
@@ -110,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Networking 8th/Network layer - data plane.md",
+                "file": "CCNA-by-Jeremy/step-by-step Eth. LAN switching.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -125,20 +124,20 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
+    "width": 200,
     "collapsed": true
   },
-  "active": "740dbd14f0acbb6d",
+  "active": "08105a8b87948505",
   "lastOpenFiles": [
-    "Networking 8th/Transport layer.md",
+    "CCNA-by-Jeremy/intro to cli.md",
     "CCNA-by-Jeremy/IPv4 addressing.md",
     "Networking 8th/Network layer - data plane.md",
+    "Networking 8th/Transport layer.md",
+    "CCNA-by-Jeremy/interfaces and cables.md",
     "General.md",
     "CCNA-by-Jeremy/Ethernet LAN switching.md",
-    "CCNA-by-Jeremy/step-by-step Eth. LAN switching.md",
     "CCNA-by-Jeremy/IPv4 static routing.md",
-    "CCNA-by-Jeremy/intro to cli.md",
-    "CCNA-by-Jeremy/interfaces and cables.md",
-    "CCNA-by-Jeremy/OSI model.md"
+    "Networking 8th/img/address_aggregation.png",
+    "CCNA-by-Jeremy/step-by-step Eth. LAN switching.md"
   ]
 }
