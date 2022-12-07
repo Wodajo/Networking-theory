@@ -139,7 +139,11 @@ Fa1/0                          up             up
 Fa1/1                          admin down     down
 ```
 
+`speed 100` max. speed on that interface
+`duplex full` - always a good option if hubs are not used
+
 #### configure description
+`interfaces range f1/0 - 1` 
 `description SOMETHING` - in interface configuration
 ```
 R1#conf t
@@ -154,3 +158,20 @@ Fa0/0                          up             up       ## to Switch1 ##
 Fa1/0                          up             up       ## to SW 2 ##
 Fa1/1                          admin down     down
 ```
+
+`do show int status` - NOT working on the routers
+```
+SW1(config-if-range)#do show int status
+
+Port      Name               Status       Vlan       Duplex  Speed Type
+Et0/0     ## to SW2 ##       connected    1            auto   auto unknown
+Et0/1     ## to end hosts ## connected    1            auto   auto unknown
+Et1/3     ## not used ##     disabled     1            auto   auto unknown
+```
+	Name - description
+	Status - connected / notconnect  (switch default startup-config make all of them seem connected).
+	Switch interfaces are NOT shutdown on default
+
+to check changes:
+`do show running-config`
+`do show interfaces description`
