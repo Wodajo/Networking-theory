@@ -15,7 +15,7 @@ Router#configure terminal
 `Router` - hostname of device  
 `>` - user EXEC mode aka user mode - users can look but can't make any configuration changes
 `enable` - enable `#`
-`#` - priviledged EXEC mode - complete accsess to view dev. config, restart etc.
+`#` - privileged EXEC mode - complete accsess to view dev. config, restart etc.
 Can change time, save current conf. file BUT can't change the configuration
 `configure terminal` - enters  `global configuration mode`
 ```
@@ -175,3 +175,6 @@ Et1/3     ## not used ##     disabled     1            auto   auto unknown
 to check changes:
 `do show running-config`
 `do show interfaces description`
+
+`include`  - kinda grep
+`show running-config | include ip route`

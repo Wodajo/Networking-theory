@@ -1,4 +1,6 @@
 127.0.0.0 - 127.255.255.255 address range for testing "network stack" on local device
+255.255.255.255 - broadcast only on that subnet
+
 
 ip address class - first octet - mask
 - A - 0xxxxxxx - /8
@@ -6,9 +8,20 @@ ip address class - first octet - mask
 - C - 110xxxxx - /24
 
 If `host portion` of IP address = all 0's -> Network ID
-If `host portion` of IP address = all 1's -> Broadcast ID
+If `host portion` of IP address = all 1's -> Broadcast ID - broadcast may reach other subnets
 
 So if dst. IP is e.g. 192.168.1.255 (on /24 network) -> frame dst. MAC is FFFF.FFFF.FFFF
+
+LAN - single `broadcast domain`
+`broadcast domain` - group of devices which will receive broadcast frame (dst. MAC FFFF.FFFF.FFFF)
+
+`VLAN` (virtual LAN) - logical LAN (configured on a switch)
+switch WON't forward traffic between VLANs (including **broadcast&unknown unicast**)
+	- you can use one switch for many subnets (broadcast won't be flooded into other subnets if in other VLANs)
+	- better performance (less broadcast than needed), better security
+- switch **doesn't perform** inter-VLAN routing
+- configured per interface
+
 
 ###### IP packet structure
 - header:

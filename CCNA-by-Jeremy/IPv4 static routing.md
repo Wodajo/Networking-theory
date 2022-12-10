@@ -61,6 +61,10 @@ S     192.168.2.0/24 [1/0] via 192.168.1.244
 192.168.4.0/24 directly connected, GigabitEthernet0/0
 192.168.4.1/32 via 192.168.14.4
 ```
-	most specific: 192.168.4.1 via 192.168.14.4
+	most specific: 192.168.4.1 via 192.168.14.
+**Remember to check where the bits of each address fall.**
+	Sometimes two /24s do not fit into a single /23, instead one sits in one /23 and the other sits in a following /23
+	e.g. 192.168.1.0/24 and 192.168.2.0/24 do not fit into a single /23
+	(first bit of first bit won't be a part of "new subnet" net ID)
 
 one-way reachability - in static IP routing you have to pass routing tables T1->T2 and T2 -> T1
