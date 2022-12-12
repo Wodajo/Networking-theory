@@ -6,6 +6,8 @@
 	  10101011
 	- destination [6 bytes = 12 hex digits]
 	- source [6 bytes]
+	- (optional) 802.1Q tag [4bytes = 32 bits]
+	  
 	- type/length [2 bytes]
 	  if =< 1500 - length of packet[bytes]
 	  if 1536 => - type of packet

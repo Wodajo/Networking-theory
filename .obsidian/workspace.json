@@ -70,7 +70,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Networking 8th/Transport layer.md",
+                "file": "CCNA-by-Jeremy/Ethernet LAN switching.md",
                 "mode": "source",
                 "source": false
               }
@@ -154,15 +154,15 @@
   },
   "active": "1f5d20d3e6b49a65",
   "lastOpenFiles": [
+    "CCNA-by-Jeremy/Ethernet LAN switching.md",
     "CCNA-by-Jeremy/IPv4 addressing.md",
-    "CCNA-by-Jeremy/notes.md",
     "CCNA-by-Jeremy/VLAN.md",
+    "CCNA-by-Jeremy/intro to cli.md",
+    "Networking 8th/Transport layer.md",
+    "CCNA-by-Jeremy/notes.md",
     "CCNA-by-Jeremy/Network devices.md",
     "CCNA-by-Jeremy/IPv4 static routing.md",
     "CCNA-by-Jeremy/subnetting.md",
-    "Networking 8th/Transport layer.md",
-    "CCNA-by-Jeremy/interfaces and cables.md",
-    "CCNA-by-Jeremy/Ethernet LAN switching.md",
-    "CCNA-by-Jeremy/intro to cli.md"
+    "CCNA-by-Jeremy/interfaces and cables.md"
   ]
 }

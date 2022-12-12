@@ -176,5 +176,6 @@ to check changes:
 `do show running-config`
 `do show interfaces description`
 
-`include`  - kinda grep
+`include`  - kinda grep 
 `show running-config | include ip route`
+(can be also `exclude` e.g. `| ex unassigned`)
